@@ -13,7 +13,7 @@ import { Link as RouterLink } from "react-router-dom";
 /* 🔽 Images */
 import image1 from "../assets/pictures/books5.JPG";
 import image4 from "../assets/pictures/books4.JPG";
-import image6 from "../assets/pictures/image5.JPG";
+import image6 from "../assets/pictures/image5.jpg";
 
 /* 🔽 VIDEO */
 import video from "../assets/videos/SunBeamVideo.mp4";
