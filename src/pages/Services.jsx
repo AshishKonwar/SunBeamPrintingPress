@@ -11,7 +11,7 @@ import { useSwipeable } from "react-swipeable";
 
 /* 🔽 Images */
 import image1 from "../assets/pictures/IMG_4919.jpg";
-import image2 from "../assets/pictures/IMG_4920.JPG";
+import image2 from "../assets/pictures/IMG_4920.jpg";
 import image3 from "../assets/pictures/books3.JPG";
 import image4 from "../assets/pictures/books4.JPG";
 import poster1 from "../assets/pictures/POSTER_1.png";
