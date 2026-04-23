@@ -17,7 +17,7 @@ import image6 from "../assets/pictures/image5.jpg";
 
 /* 🔽 VIDEO */
 import video from "../assets/videos/SunBeamVideo.MP4";
-Z
+
 /* 🔽 Data */
 const featuredCollections = [
   {
