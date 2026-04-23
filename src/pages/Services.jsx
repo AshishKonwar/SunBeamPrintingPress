@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import { useSwipeable } from "react-swipeable";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import image1 from "../assets/pictures/IMG_4919.jpg";
 import image2 from "../assets/pictures/IMG_4920.jpg";
@@ -156,8 +158,13 @@ export default function ServicesPage() {
             }}
           />
 
-          <Box onClick={handlePrev} sx={navBtn("left")}>⬅</Box>
-          <Box onClick={handleNext} sx={navBtn("right")}>➡</Box>
+          <Box onClick={handlePrev} sx={navBtn("left")}>
+        <ArrowBackIosNewIcon sx={{ fontSize: { xs: 16, sm: 22 } }} />
+    </Box>
+
+    <Box onClick={handleNext} sx={navBtn("right")}>
+      <ArrowForwardIosIcon sx={{ fontSize: { xs: 16, sm: 22 } }} />
+    </Box>
 
           <Box onClick={() => setOpenGallery(false)} sx={closeBtn}>
             ✕
