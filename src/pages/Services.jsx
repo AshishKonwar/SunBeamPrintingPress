@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Box,
   Container,
@@ -9,7 +9,6 @@ import {
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import { useSwipeable } from "react-swipeable";
 
-/* 🔽 Images */
 import image1 from "../assets/pictures/IMG_4919.jpg";
 import image2 from "../assets/pictures/IMG_4920.jpg";
 import image3 from "../assets/pictures/books3.JPG";
@@ -29,12 +28,11 @@ import photos12 from "../assets/pictures/image11.jpg";
 import photos13 from "../assets/pictures/image12.jpg";
 import photos14 from "../assets/pictures/image13.jpg";
 import photos15 from "../assets/pictures/image15.jpg";
-import photos16 from "../assets/pictures/image10.jpg"; 
+import photos16 from "../assets/pictures/image10.jpg";
 import photos18 from "../assets/pictures/IMG_4939.jpg";
 import photos19 from "../assets/pictures/IMG_4935.jpg";
-import photos20 from "../assets/pictures/image11.jpg";   
+import photos20 from "../assets/pictures/image11.jpg";
 
-/* 🔽 Services */
 const services = [
   {
     title: "Multicolour Offset Printing",
@@ -45,7 +43,7 @@ const services = [
   },
   {
     title: "Digital Printing (Colour & Mono)",
-    images: [leaflet1, leaflet2,  photos18, photos19],
+    images: [leaflet1, leaflet2, photos18, photos19],
     about:
       "Fast and flexible printing for urgent and small quantity requirements.",
     items: ["Flyers, certificates, documents"],
@@ -92,17 +90,18 @@ export default function ServicesPage() {
   const [currentImages, setCurrentImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNext = () => {
+  /* ✅ Optimized handlers */
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) =>
       prev === currentImages.length - 1 ? 0 : prev + 1
     );
-  };
+  }, [currentImages]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) =>
       prev === 0 ? currentImages.length - 1 : prev - 1
     );
-  };
+  }, [currentImages]);
 
   const handlers = useSwipeable({
     onSwipedLeft: handleNext,
@@ -121,7 +120,7 @@ export default function ServicesPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [openGallery]);
+  }, [openGallery, handleNext, handlePrev]);
 
   return (
     <Box
@@ -131,7 +130,7 @@ export default function ServicesPage() {
         background: "linear-gradient(135deg, #051121, #0a2540, #012a4a)",
       }}
     >
-      {/* 🔥 DIALOG */}
+      {/* 🔥 IMAGE DIALOG */}
       <Dialog
         open={openGallery}
         onClose={() => setOpenGallery(false)}
@@ -149,6 +148,7 @@ export default function ServicesPage() {
           <Box
             component="img"
             src={currentImages[currentIndex]}
+            loading="lazy"
             sx={{
               width: "100%",
               maxHeight: "80vh",
@@ -189,7 +189,7 @@ export default function ServicesPage() {
               flexDirection: index % 2 === 0 ? "row" : "row-reverse",
             }}
           >
-            {/* 🔥 IMAGE */}
+            {/* IMAGE */}
             <Grid item xs={12} md={6}>
               <Box
                 onClick={() => {
@@ -200,7 +200,7 @@ export default function ServicesPage() {
                 sx={{
                   position: "relative",
                   width: "100%",
-                  height: { xs: 240, sm: 280, md: 320 },
+                  height: { xs: 220, sm: 260, md: 320 },
                   overflow: "hidden",
                   borderRadius: 3,
                   background: "#111",
@@ -210,6 +210,7 @@ export default function ServicesPage() {
                 <Box
                   component="img"
                   src={service.images[0]}
+                  loading="lazy"
                   sx={{
                     width: "100%",
                     height: "100%",
@@ -221,7 +222,6 @@ export default function ServicesPage() {
                   }}
                 />
 
-                {/* 🔍 Hover */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -235,12 +235,12 @@ export default function ServicesPage() {
                     "&:hover": { opacity: 1 },
                   }}
                 >
-                  <ZoomInIcon sx={{ fontSize: 40, color: "#fff" }} />
+                  <ZoomInIcon sx={{ fontSize: 32, color: "#fff" }} />
                 </Box>
               </Box>
             </Grid>
 
-            {/* 🔥 TEXT */}
+            {/* TEXT */}
             <Grid item xs={12} md={6}>
               <Typography
                 sx={{
@@ -270,22 +270,23 @@ export default function ServicesPage() {
   );
 }
 
-/* 🔥 NAV BUTTON (ONLY DIALOG) */
+/* 🔥 RESPONSIVE NAV BUTTON */
 const navBtn = (side) => ({
   position: "absolute",
   top: "50%",
-  [side]: 15,
+  [side]: { xs: 8, sm: 15 },
   transform: "translateY(-50%)",
-  width: 50,
-  height: 50,
+  width: { xs: 32, sm: 45 },
+  height: { xs: 32, sm: 45 },
   borderRadius: "50%",
   background: "#00AEEF",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   color: "#fff",
-  fontSize: "1.5rem",
+  fontSize: { xs: "1rem", sm: "1.3rem" },
   cursor: "pointer",
+  opacity: 0.9,
 });
 
 /* 🔥 CLOSE BUTTON */
@@ -294,6 +295,6 @@ const closeBtn = {
   top: 10,
   right: 15,
   color: "#fff",
-  fontSize: "1.5rem",
+  fontSize: "1.4rem",
   cursor: "pointer",
 };
