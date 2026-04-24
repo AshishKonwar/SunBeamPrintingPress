@@ -22,12 +22,15 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  const menuItems = [
-    { label: "Home", path: "/" },
-    { label: "About Us", path: "/about" },
-    { label: "Contact Us", path: "/contact" },
-    { label: "Our Services", path: "/services" },
-  ];
+const menuItems = [
+  { label: "Home", path: "/" },
+  { label: "About & Overview", path: "/about" },
+  { label: "Services", path: "/services" },
+  { label: "Gallery", path: "/gallery" },
+  { label: "Resources", path: "/resources" },
+  { label: "Contact", path: "/contact" },
+  { label: "Get a Quote", path: "/quotation" },
+];
 
   return (
     <AppBar

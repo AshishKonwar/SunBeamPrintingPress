@@ -6,15 +6,11 @@ import {
   TextField,
   Button,
   Paper,
-  Breadcrumbs,
-  Link,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function RequestQuotation() {
-  const navigate = useNavigate();
+export default function Quotation() {
   const [status, setStatus] = useState("");
 
   const {
@@ -25,288 +21,360 @@ export default function RequestQuotation() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setStatus("Sending your request...");
+
+      console.log("===== FORM DATA SUBMITTED =====");
+      console.table(data);   // 🔥 BEST for forms
+      console.log("Raw Object:", data);
+
+
+    setStatus("Sending...");
 
     try {
-      const response = await axios.post("http://localhost:8000/request-quotation/", data);
+      const response = await axios.post(
+        "http://localhost:8000/quote-form/",
+        data
+      );
 
       if (response.data.success) {
-        setStatus("✅ Quotation request sent successfully!");
-        console.log("Quotation sent successfully:", response.data);
+        setStatus("✅ Quote request sent successfully!");
         reset();
       } else {
-        setStatus("❌ Failed to send request. Please try again.");
-        console.error("Error response:", response.data.error);
+        setStatus("❌ Failed to send request.");
       }
     } catch (error) {
-      console.error("Error sending quotation request:", error);
-      setStatus("❌ Unable to send request. Check console for details.");
+      setStatus("❌ Error sending request");
     }
   };
 
   return (
-    <Box sx={{ p: 4, backgroundColor: "#061727", minHeight: "100vh" }}>
-      {/* Breadcrumb */}
-      <Box sx={{ mb: 6 }}>
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          sx={{
-            color: "#fbfbf9e8",
-            fontSize: "0.85rem",
-            "& a, & p": { fontSize: "0.85rem" },
-          }}
-        >
-          <Link
-            underline="hover"
-            color="#fbfbf9e8"
-            sx={{
-              cursor: "pointer",
-              transition: "color 0.3s ease",
-              "&:hover": { color: "#01A9D8" },
-            }}
-            onClick={() => navigate("/")}
-          >
-            Home
-          </Link>
-          <Typography color="#fbfbf9e8">Request Quotation</Typography>
-        </Breadcrumbs>
+    <Box
+      sx={{
+        mt: { xs: 0, md: 6 },
+        p: 4,
+        backgroundColor: "#061727",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Page Title */}
+       <Typography
+                              variant="h5"
+                              sx={{
+                                textAlign: "center",
+                                fontWeight: 700,
+                                color: "white",
+                                mt: 4,
+                                mb: 3,
+                              }}
+                            >
+        Request a Quote
+      </Typography>
+
+      {/* Intro */}
+      <Box sx={{ maxWidth: 800, mx: "auto", mb: 6 }}>
+        <Typography
+                                  sx={{
+                                    textAlign: "center",
+                                    color: "#4fc3f7",
+                                    mb: 5,
+                                  }}
+                                >
+          Tell us about your printing requirements and we will provide you with
+          the best solution and pricing tailored to your needs.
+        </Typography>
       </Box>
 
-      {/* Main Layout */}
-      <Grid container spacing={10} justifyContent="center" mt={1}>
-        {/* Left Side Info */}
-        <Grid item xs={12} md={5}>
-          <Box sx={{ lineHeight: 1.8, color: "#fbfbf9e8" }}>
-            <Typography variant="body1" sx={{ mb: 2 }}>
-              - Feel free to explain your needs.
-              <br />
-              - Fill out the form with your requirement details to get a quotation.
-              <br />
-              - Not sure what you need? Our experts will help via phone or email.
-            </Typography>
-
+      <Grid container justifyContent="center">
+        <Grid item xs={12} md={8}>
+          <Paper sx={{ p: 4, borderRadius: 2 }}>
+            
+            {/* Form Title */}
             <Typography
-              variant="body1"
-              sx={{ fontWeight: 600, color: "#01A9D8", mt: 3 }}
+              sx={{
+                textAlign: "center",
+                fontWeight: 700,
+                mb: 3,
+                color: "#0a2540",
+                fontSize: { xs: "1.2rem", md: "1.5rem" },
+              }}
             >
-              For Sales Related Enquiry:
+              Get Your Printing Quote
             </Typography>
 
-            <Typography variant="body1" sx={{ mt: 1 }}>
-              Email:{" "}
-              <Link
-                href="mailto:info@sunbeampress.com"
-                sx={{
-                  color: "#fbfbf9e8",
-                  "&:hover": { color: "#01A9D8" },
-                }}
-              >
-                info@sunbeampress.com
-              </Link>
-              <br />
-              Ph:{" "}
-              <Typography
-                component="span"
-                sx={{ fontWeight: 600, color: "#01A9D8" }}
-              >
-                +91-98540-36874 / +91-98540-73076
+            <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+
+  {/* 🔹 BASIC DETAILS */}
+  <Typography sx={{ fontWeight: 700, mt: 1, mb: 1 }}>
+    Basic Details
+  </Typography>
+
+  <Box
+  sx={{
+    height: "1px",
+    width: "100%",
+    background: "linear-gradient(90deg, #4fc3f7, #01A9D8)",
+    borderRadius: "5px",
+    mb: 1,
+      }}
+    />
+
+  {/* Full Name */}
+  <Controller
+    name="name"
+    control={control}
+    rules={{
+      required: "Full Name is required",
+      minLength: { value: 3, message: "Minimum 3 characters required" },
+    }}
+    render={({ field }) => (
+      <TextField
+        {...field}
+        label="Full Name"
+        fullWidth
+        margin="normal"
+        error={!!errors.name}
+        helperText={errors.name?.message}
+      />
+    )}
+  />
+
+  {/* Phone */}
+  <Controller
+    name="phone"
+    control={control}
+    rules={{
+      required: "Phone number is required",
+      pattern: {
+        value: /^[0-9]{10}$/,
+        message: "Enter a valid 10-digit phone number",
+      },
+    }}
+    render={({ field }) => (
+      <TextField
+        {...field}
+        label="Phone Number"
+        fullWidth
+        margin="normal"
+        error={!!errors.phone}
+        helperText={errors.phone?.message}
+        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+      />
+    )}
+  />
+
+  {/* Email */}
+  <Controller
+    name="email"
+    control={control}
+    rules={{
+      required: "Email is required",
+      pattern: {
+        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        message: "Enter a valid email address",
+      },
+    }}
+    render={({ field }) => (
+      <TextField
+        {...field}
+        label="Email Address"
+        fullWidth
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email?.message}
+      />
+    )}
+  />
+
+  {/* 🔹 PROJECT DETAILS */}
+  <Typography sx={{ fontWeight: 700, mt: 3, mb: 1 }}>
+    Project Details
+  </Typography>
+
+  <Box
+  sx={{
+    height: "1px",
+    width: "100%",
+    background: "linear-gradient(90deg, #4fc3f7, #01A9D8)",
+    borderRadius: "5px",
+    mb: 1,
+      }}
+    />
+
+  {/* What to print */}
+        <Controller
+          name="project"
+          control={control}
+          rules={{
+            required: "Please specify what you want printed",
+            minLength: { value: 3, message: "Too short" },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="What do you want printed?"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={5}
+              error={!!errors.project}
+              helperText={errors.project?.message}
+              sx={{
+                "& .MuiInputBase-root": {
+                  alignItems: "flex-start", // better text alignment
+                },
+              }}
+            />
+          )}
+        />
+
+        {/* Quantity */}
+        <Controller
+          name="quantity"
+          control={control}
+          rules={{
+            required: "Quantity is required",
+            pattern: {
+              value: /^[1-9][0-9]*$/,
+              message: "Enter a valid quantity",
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Quantity"
+              fullWidth
+              margin="normal"
+              error={!!errors.quantity}
+              helperText={errors.quantity?.message}
+              inputProps={{ inputMode: "numeric" }}
+            />
+          )}
+        />
+
+        {/* Size */}
+        <Controller
+          name="size"
+          control={control}
+          rules={{
+            maxLength: { value: 50, message: "Too long" },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Size (optional)"
+              fullWidth
+              margin="normal"
+              error={!!errors.size}
+              helperText={errors.size?.message}
+            />
+          )}
+        />
+
+        {/* Deadline */}
+        <Controller
+          name="deadline"
+          control={control}
+          rules={{
+            validate: (value) => {
+              if (!value) return true;
+              const today = new Date().toISOString().split("T")[0];
+              return value >= today || "Deadline cannot be in the past";
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Deadline (optional)"
+              type="date"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{ shrink: true }}
+              error={!!errors.deadline}
+              helperText={errors.deadline?.message}
+            />
+          )}
+        />
+
+        {/* 🔹 ADDITIONAL DETAILS */}
+        <Typography sx={{ fontWeight: 700, mt: 3, mb: 1 }}>
+          Additional Details
+        </Typography>
+
+        <Box
+          sx={{
+            height: "1px",
+            width: "100%",
+            background: "linear-gradient(90deg, #4fc3f7, #01A9D8)",
+            borderRadius: "5px",
+            mb: 1,
+              }}
+            />
+
+        <Controller
+          name="details"
+          control={control}
+          rules={{
+            maxLength: {
+              value: 500,
+              message: "Maximum 500 characters allowed",
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Additional Details (optional)"
+              fullWidth
+              margin="normal"
+              multiline
+              rows={5} 
+              error={!!errors.details}
+              helperText={errors.details?.message}
+              placeholder="Any extra instructions, finishing requirements, paper type, etc."
+              sx={{
+                "& .MuiInputBase-root": {
+                  alignItems: "flex-start",
+                },
+              }}
+            />
+          )}
+        />
+
+        {/* Submit */}
+        <Button
+          fullWidth
+          type="submit"
+          variant="contained"
+          sx={{
+            mt: 3,
+            py: 1.2,
+            backgroundColor: "#01A9D8",
+            fontWeight: 600,
+          }}
+        >
+          Request Quote
+        </Button>
+
+      </Box>
+
+            {/* TRUST LINE */}
+            <Box sx={{ mt: 4, textAlign: "center" }}>
+              <Typography sx={{ color: "#0a2540", fontWeight: 500 }}>
+                ✔ Reliable Service &nbsp;&nbsp; ✔ Timely Delivery &nbsp;&nbsp; ✔ Quality Assurance
               </Typography>
-            </Typography>
-          </Box>
-        </Grid>
-
-        {/* Right Side - Form */}
-        <Grid item xs={12} md={6}>
-          <Paper
-            sx={{
-              p: 4,
-              borderRadius: 2,
-              backgroundColor: "#ffffff",
-              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.4)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0 12px 40px rgba(0, 0, 0, 0.45)",
-              },
-            }}
-          >
-            <Typography
-              variant="h6"
-              gutterBottom
-              fontWeight={600}
-              sx={{ color: "#061727", mb: 2 }}
-            >
-              Fill the form to get a quotation
-            </Typography>
-
-            <Box
-              component="form"
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              {/* Name */}
-              <Controller
-                name="name"
-                control={control}
-                defaultValue=""
-                rules={{ required: "Your name is required ✍️" }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Name*"
-                    fullWidth
-                    margin="normal"
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                  />
-                )}
-              />
-
-              {/* Email */}
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Email is required 📧",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message:
-                      "Please enter a valid email — e.g. you@example.com ✉️",
-                  },
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Email ID*"
-                    fullWidth
-                    margin="normal"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                  />
-                )}
-              />
-
-              {/* Mobile */}
-              <Controller
-                name="mobile"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Mobile number is required 📱",
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Please enter a valid 10-digit number 🔢",
-                  },
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Mobile No.*"
-                    fullWidth
-                    margin="normal"
-                    error={!!errors.mobile}
-                    helperText={errors.mobile?.message}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                )}
-              />
-
-              {/* Address */}
-              <Controller
-                name="address"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Address"
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={2}
-                  />
-                )}
-              />
-
-              {/* Requirement Details */}
-              <Controller
-                name="requirements"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Please mention your requirements 📝",
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Requirement Details*"
-                    fullWidth
-                    margin="normal"
-                    multiline
-                    rows={3}
-                    error={!!errors.requirements}
-                    helperText={errors.requirements?.message}
-                  />
-                )}
-              />
-
-              {/* Delivery Date */}
-              <Controller
-                name="deliveryDate"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Please select a preferred delivery date 📅",
-                }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Delivery Date (On/Before)*"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
-                    margin="normal"
-                    error={!!errors.deliveryDate}
-                    helperText={errors.deliveryDate?.message}
-                  />
-                )}
-              />
-
-              {/* Submit */}
-              <Button
-                fullWidth
-                type="submit"
-                variant="contained"
-                size="large"
-                sx={{
-                  textTransform: "none",
-                  fontWeight: 600,
-                  py: 1.2,
-                  mt: 3,
-                  backgroundColor: "#01A9D8",
-                  "&:hover": { backgroundColor: "#0192BE" },
-                }}
-              >
-                Send Request
-              </Button>
-
-              {status && (
-                <Typography
-                  sx={{ mt: 2, fontSize: "0.9rem", textAlign: "center" }}
-                  color={
-                    status.startsWith("✅")
-                      ? "success.main"
-                      : status.startsWith("❌")
-                      ? "error.main"
-                      : "text.secondary"
-                  }
-                >
-                  {status}
-                </Typography>
-              )}
             </Box>
+
+            {/* CLOSING NOTE */}
+            <Typography
+              sx={{
+                textAlign: "center",
+                mt: 3,
+                color: "#555",
+                fontSize: { xs: "0.85rem", md: "0.95rem" },
+              }}
+            >
+              Our team will review your request and get back to you with details
+              and pricing as soon as possible.
+            </Typography>
+
           </Paper>
         </Grid>
       </Grid>

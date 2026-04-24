@@ -216,11 +216,36 @@ export default function OurInfrastuctureSection() {
             textAlign: "center",
             fontWeight: 700,
             color: "white",
-            mb: 6,
+            mb: 2,
           }}
         >
            Our Printing Infrastructure
         </Typography>
+
+        <Typography
+                  variant="h6"
+                  sx={{
+                    textAlign: "center",
+                    fontWeight: 600,
+                    color: "#4fc3f7",
+                    mb: 5,
+                  }}
+                >
+                  Advanced Printing Infrastructure in Guwahati
+                </Typography>
+
+                <Box sx={{ maxWidth: 800, mx: "auto", mb: 6 }}>
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              textAlign: "center",
+                              color: "rgba(255,255,255,0.8)",
+                              lineHeight: 1.8,
+                            }}
+                          >
+                            Our facility is equipped with modern machinery including Komori Lithrone offset presses, advanced pre-press systems, and efficient post-press equipment ensuring high-quality output and fast turnaround times.
+                          </Typography>
+                  </Box>
 
         {/* Grid Layout */}
         <Grid

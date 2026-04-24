@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { CircularProgress, Box } from "@mui/material";
+import Quotation from "../pages/Quotation";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("../pages/Home"));
@@ -9,6 +10,8 @@ const Pricing = lazy(() => import("../pages/Pricing"));
 const Orders = lazy(() => import("../pages/Orders"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
+const MyGallery = lazy(() => import("../pages/MyGallery"));
+const Resources = lazy(() => import("../pages/Resources"));
 
 // Loading component
 const PageLoader = () => (
@@ -65,6 +68,24 @@ export const routes = [
     element: <Contact />,
     title: "Contact",
     description: "Get in touch with us"
+  },
+  {
+    path: "/quotation",
+    element: <Quotation />,
+    title: "Get Quotation",
+    description: "Request a quote for our printing services"
+  },
+  {
+    path: "/gallery",
+    element: <Gallery />,
+    title: "Gallery",
+    description: "View our work gallery"
+  },
+  {
+    path: "/resources",
+    element: <Resources />,
+    title: "Resources",
+    description: "Downloads and FAQs"
   }
 ];
 

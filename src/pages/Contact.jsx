@@ -23,9 +23,12 @@ export default function ContactUs() {
   } = useForm();
 
   const onSubmit = async (data) => {
+
     setStatus("Sending...");
 
     try {
+
+
       const response = await axios.post("http://localhost:8000/contact-form/", data);
 
       if (response.data.success) {
@@ -51,75 +54,73 @@ export default function ContactUs() {
                           fontWeight: 700,
                           color: "white",
                           mt: 3,
-                          mb: 7,
+                          mb: 3,
                         }}
                       >
                 Contact Us
               </Typography>
-      {/* <Box sx={{ mb: 10 }}>
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          sx={{
-            color: "#fbfbf9e8",
-            fontSize: "0.85rem",
-            "& a, & p": { fontSize: "0.85rem" },
-          }}
-        >
-          <Link
-            underline="hover"
-            color="#fbfbf9e8"
-            sx={{
-              cursor: "pointer",
-              transition: "color 0.3s ease",
-              "&:hover": {
-                color: "#01A9D8",
-              },
-            }}
-            onClick={() => navigate("/")}
-          >
-            Home
-          </Link>
-          <Typography color="#fbfbf9e8" sx={{ fontSize: "0.85rem" }}>
-            Contact Us
-          </Typography>
-        </Breadcrumbs>
-      </Box> */}
+
+      <Box sx={{ maxWidth: 800, mx: "auto", mb: 6 }}>
+                 <Typography
+                          sx={{
+                            textAlign: "center",
+                            color: "#4fc3f7",
+                            mb: 5,
+                          }}
+                        >
+                  Have a question or need more information about our services? Get in touch with us and our team will be happy to assist you with your printing requirements.
+                </Typography>
+              </Box>
 
       <Grid container spacing={10} justifyContent="center" mt={2}>
         {/* Left Side - Contact Info */}
-        <Grid item xs={12} md={5}>
-          <Box textAlign="center" sx={{ lineHeight: 1.8 }}>
-            <Typography color="#fbfbf9e8" variant="h6" gutterBottom>
-              Address:
-            </Typography>
-            <Typography color="#fbfbf9e8" variant="body1">
-              Rupnagar, Guwahati <br />
-              Assam, India
-            </Typography>
+         <Grid item xs={12} md={5}>
+    <Box textAlign="center" sx={{ lineHeight: 1.8 }}>
+      
+      <Typography
+        variant="h6"
+        sx={{ color: "#4fc3f7", fontWeight: 700, mb: 2 }}
+      >
+        Sun Beam Printing Press
+      </Typography>
 
-            <Typography color="#fbfbf9e8" variant="h6" sx={{ mt: 3 }}>
-              Phone No.
-            </Typography>
-            <Typography color="#fbfbf9e8" variant="body1">
-              1234567879 <br />
-              1234567891
-            </Typography>
+      <Typography color="#fbfbf9e8" variant="body1">
+        House No. 1, Sankardev Path <br />
+        Rupnagar, Guwahati, Assam – 781032
+      </Typography>
 
-            <Typography color="#fbfbf9e8" variant="h6" sx={{ mt: 3 }}>
-              Email:
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontWeight: 600, color: "#01A9D8" }}
-            >
-              sunbeamprintingpress@gmail.com
-            </Typography>
-          </Box>
-        </Grid>
+      <Typography color="#fbfbf9e8" variant="body1" sx={{ mt: 3 }}>
+        📞 Phone: +91 7002216187 <br />
+        📞 Alternate Phone: +91 9859235981 <br />
+        💬 WhatsApp: +91 7002216187
+      </Typography>
+
+      <Typography
+        variant="body1"
+        sx={{ fontWeight: 600, color: "#01A9D8", mt: 3 }}
+      >
+        📧 Email: anujkmazumdar@gmail.com
+      </Typography>
+
+    </Box>
+  </Grid>
 
         {/* Right Side - Contact Form */}
         <Grid item xs={12} md={6}>
           <Paper sx={{ p: 4, boxShadow: 3, borderRadius: 2 }}>
+
+            <Typography
+              variant="h5"
+              sx={{
+                textAlign: "center",
+                fontWeight: 700,
+                mb: 2,
+                color: "#0a2540",
+                fontSize: { xs: "1.3rem", md: "1.3rem" },
+              }}
+            >
+              Send Us a Message
+            </Typography>
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
               {/* Subject */}
               <Controller
@@ -154,7 +155,7 @@ export default function ContactUs() {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Mobile No"
+                    label="Phone Number"
                     fullWidth
                     margin="normal"
                     error={!!errors.mobile}
@@ -179,7 +180,7 @@ export default function ContactUs() {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label="Email Address"
                     fullWidth
                     margin="normal"
                     error={!!errors.email}
@@ -240,9 +241,107 @@ export default function ContactUs() {
                 </Typography>
               )}
             </Box>
+            <Typography
+               sx={{
+                            textAlign: "center",
+                            mt: 3,
+                            color: "#555",
+                            fontSize: { xs: "0.85rem", md: "0.95rem" },
+                          }}
+                        >
+              We aim to respond to all inquiries as quickly as possible.
+            </Typography>
           </Paper>
         </Grid>
       </Grid>
+
+      {/* MAP SECTION */}
+<Box sx={{ mt: 8 }}>
+  <Typography
+    variant="h5"
+    sx={{
+      textAlign: "center",
+      fontWeight: 700,
+      color: "white",
+      mb: 2,
+      fontSize: { xs: "1.2rem", md: "1.6rem" },
+    }}
+  >
+    📍 Find Us
+  </Typography>
+
+  <Typography
+    sx={{
+      textAlign: "center",
+      color: "rgba(255,255,255,0.8)",
+      mb: 4,
+      fontSize: { xs: "0.9rem", md: "1rem" },
+    }}
+  >
+    Sun Beam Printing Press, Rupnagar, Guwahati
+  </Typography>
+
+  <Box
+    sx={{
+      width: "100%",
+      height: { xs: 250, md: 400 },
+      borderRadius: 3,
+      overflow: "hidden",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+    }}
+  >
+    <iframe
+      title="Sun Beam Printing Press Location"
+      src="https://www.google.com/maps?q=Sun%20Beam%20Printing%20Press%2C%205Q57%2BJ5Q%2C%20GMC%20Hospital%20Rd%2C%20Rupnagar%2C%20Birubari%2C%20Guwahati%2C%20Assam%20781032&output=embed"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+    ></iframe>
+  </Box>
+
+  {/* Optional Button */}
+  <Box sx={{ textAlign: "center", mt: 3 }}>
+      <Button
+        component="a"
+        href="https://www.google.com/maps?q=Sun+Beam+Printing+Press,+5Q57+J5Q,+GMC+Hospital+Rd,+Rupnagar,+Birubari,+Guwahati,+Assam+781032"
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={{
+          px: 3.5,
+          py: 1.2,
+          borderRadius: "30px",
+          textTransform: "capitalize",
+          fontWeight: 600,
+          letterSpacing: "0.3px",
+
+          // DEFAULT
+          color: "rgba(255,255,255,0.9)",
+          background: "rgba(255,255,255,0.05)",
+          border: "1px solid rgba(255,255,255,0.8)",
+
+          transition: "all 0.3s ease",
+
+          // HOVER
+          "&:hover": {
+            background: "rgba(79,195,247,0.15)",
+            color: "#ffffff",
+            transform: "translateY(-2px)",
+            border: "1px solid #ffffff",
+            boxShadow: "0 5px 20px rgba(79,195,247,0.4)",
+          },
+
+          // CLICK FEEL
+          "&:active": {
+            transform: "scale(0.97)",
+          },
+        }}
+      >
+        Open in Google Maps →
+      </Button>
+    </Box>
+</Box>
     </Box>
   );
 }

@@ -179,6 +179,7 @@ export default function ServicesPage() {
             textAlign: "center",
             fontWeight: 700,
             color: "white",
+            mt: 2,
             mb: 9,
           }}
         >

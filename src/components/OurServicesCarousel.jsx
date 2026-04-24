@@ -158,25 +158,42 @@ function OurServicesCarousel() {
 
         {/* 🔥 BUTTON */}
         <Box sx={{ textAlign: "center", mt: 3 }}>
-          <Button
-            component={RouterLink}
-            to="/services"
-            variant="contained"
-            size="small"
-            sx={{
-              px: 3,
-              py: 1.2,
-              borderRadius: 2,
-              fontWeight: 700,
-              color: "#fff",
-              background: "#01A9D8",
-              "&:hover": {
-                transform: "translateY(-2px)",
-              },
-            }}
-          >
-            See More
-          </Button>
+          <Box sx={{ textAlign: "center", mt: 3 }}>
+            <Button
+                component={RouterLink}
+                to="/services"
+                sx={{
+                  px: 3.5,
+                  py: 1.2,
+                  borderRadius: "30px", // 🔥 pill style
+                  textTransform: "capitalize",
+                  fontWeight: 600,
+                  letterSpacing: "0.3px",
+
+                  // DEFAULT
+                  color: "rgba(255,255,255,0.9)",
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.8)",
+
+                  transition: "all 0.3s ease",
+
+                  // HOVER
+                  "&:hover": {
+                    background: "rgba(79,195,247,0.15)",
+                    color: "#ffffff",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 5px 20px rgba(79,195,247,0.4)",
+                  },
+
+                  // CLICK FEEL
+                  "&:active": {
+                    transform: "scale(0.97)",
+                  },
+                }}
+              >
+                See More
+            </Button>
+          </Box>
         </Box>
 
       </Container>

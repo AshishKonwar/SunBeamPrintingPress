@@ -10,6 +10,8 @@ import Contact from "./pages/Contact";
 import Quotation from "./pages/Quotation";
 import Footer from "./components/Footer";
 import ScrollToTop from "./hooks/ScrollToTop";
+import Resources from "./pages/Resources";
+import MyGallery from "./pages/MyGallery";
 
 // Route configuration object for better maintainability
 const routes = [
@@ -21,6 +23,9 @@ const routes = [
   // { path: "/pricing", element: <Pricing />, title: "Pricing" },
   // { path: "/orders", element: <Orders />, title: "Orders" },
   { path: "/about", element: <About />, title: "About" },
+    { path: "/gallery", element: <MyGallery />, title: "Gallery" },
+  { path: "/resources", element: <Resources />, title: "Resources" },
+
   // { path: "/contact", element: <Contact />, title: "Contact" },
 ];
 
