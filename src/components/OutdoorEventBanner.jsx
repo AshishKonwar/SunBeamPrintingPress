@@ -92,7 +92,7 @@ export default function OutdoorEventBanner() {
                 }}
               >
                 High-quality <strong>offset and digital printing</strong> using advanced 
-                <strong> Komori Lithrone technology</strong>. Serving Assam since <em>2007</em> 
+                <strong> Komori Lithrone technology</strong>. Serving Assam since <em>2007 </em> 
                 with reliability and precision.
               </Typography>
 
